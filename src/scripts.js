@@ -1,11 +1,14 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
+import "./css/styles.css";
+import { fetchTravelers, fetchTrips, fetchDestinations } from "./apiCalls.js";
 
-// An example of how you tell webpack to use a CSS (SCSS) file
-import './css/styles.css';
+Promise.all([fetchTravelers(), fetchTrips(), fetchDestinations()])
+  .then((results) => {
+    const [travelers, trips, destinations] = results;
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
-
-
-console.log('This is the JavaScript entry file - your code begins here.');
+    console.log("Travelers:", travelers);
+    console.log("Trips:", trips);
+    console.log("Destinations:", destinations);
+  })
+  .catch((error) => {
+    console.error("Failed to fetch data:", error);
+  });
