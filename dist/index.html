@@ -4,11 +4,31 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>Travel Dashboard</title>
+  <!-- <link rel="stylesheet" href="styles.css"> -->
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
+  <header>
+    <h1 class="welcome">WELCOME, NAME</h1>
+    <p class="total-spending">Total Spending:</p>
+  </header>
   
+  <nav class="trip-nav" role="navigation" aria-label="Trip navigation">
+    <button class="trip-button" aria-label="Past Trips">Past Trips</button>
+    <button class="trip-button" aria-label="Pending Trips">Pending Trips</button>
+    <button class="trip-button" aria-label="Future Trips">Future Trips</button>
+  </nav>
+  
+  <main>
+    <section class="estimated-cost">
+      <h2>Estimated Cost:</h2>
+      <!-- Scrollable box for API destinations would go here -->
+      <div class="scroll-box" tabindex="0">
+        Scroll Box of API destinations
+      </div>
+    </section>
+  </main>
+
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
 
