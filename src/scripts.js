@@ -1,6 +1,8 @@
 import "./css/styles.css";
 import { fetchTravelers, fetchTrips, fetchDestinations } from "./apiCalls.js";
 
+
+
 Promise.all([fetchTravelers(), fetchTrips(), fetchDestinations()])
   .then((results) => {
     const [travelers, trips, destinations] = results;
