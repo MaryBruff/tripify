@@ -1,3 +1,59 @@
-body {
+/* body {
   background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+} */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #aad3e6; 
+  padding: 20px;
+}
+
+.welcome {
+  font-size: 30px; 
+}
+
+.total-spending {
+  font-size: 25px; 
+  text-align: right;
+}
+
+.trip-nav {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+
+.trip-button {
+  padding: 60px 100px;
+  background-color: #fcc9b5;
+  border: none;
+  cursor: pointer;
+  font-size: large;
+}
+
+.trip-button:hover {
+  background-color: #f8b8d0; 
+}
+
+main {
+  padding: 20px;
+}
+
+.estimated-cost {
+  background-color: #cde4d0; 
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.scroll-box {
+  height: 150px;
+  overflow-y: scroll;
+  background-color: #d6eadf; 
+  margin-top: 20px;
+  padding: 10px;
 }
