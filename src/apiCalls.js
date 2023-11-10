@@ -1,32 +1,38 @@
-// Function to fetch travelers
-export const fetchTravelers = () => {
-  return fetch("http://localhost:3001/api/v1/travelers")
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+ export const allTravelersData = fetch('http://localhost:3001/api/v1/travelers')
+  .then(response => response.json())
+  .then(data => data.travelers);
+
+const oneTravelerData = (id) => {
+  fetch(`http://localhost:3001/api/v1/travelers/${id}`)
+  .then(response => response.json())
+  .then(data => console.log(data)); 
+}
+
+const allTripsData = fetch('http://localhost:3001/api/v1/trips')
+  .then(response => response.json())
+  .then(data => data.trips);
+
+const allDestinationsData = fetch('http://localhost:3001/api/v1/destinations')
+  .then(response => response.json())
+  .then(data => data.destinations);
+
+
+
+
+export const addNewTrip = (data) => {
+  fetch('http://localhost:3001/api/v1/trips', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+          'Content-Type': 'application/json'
       }
-      return response.json();
-    });
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
 };
 
-// Function to fetch trips
-export const fetchTrips = () => {
-  return fetch("http://localhost:3001/api/v1/trips")
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    });
-};
-
-// Function to fetch destinations
-export const fetchDestinations = () => {
-  return fetch("http://localhost:3001/api/v1/destinations")
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    });
-};
+export const promises = [
+  allTravelersData,
+  allTripsData,
+  allDestinationsData,
+];
