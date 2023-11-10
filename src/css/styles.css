@@ -1,199 +1,55 @@
-body, h1, h2, h3, p, form, input, button {
-  margin: 0;
-  /* padding: 0; */
-  box-sizing: border-box;
-}
-
 body {
-  background-color: #CfEBB6; 
-  font-family: Calibri, sans-serif; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-items: flex-start;
-  height: 100vh;
+  font-family: Arial, sans-serif;
 }
 
 header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%; 
-  padding: 10px; 
-}
-
-h1 {
-  font-size: 48px;
-  margin: 10px;
-  text-align: center;
-}
-
-
-
-/* === Button styling === */
-button {
-  background-color: #5cb85c;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
-#loginErrorMessage {
-  color: red;
-  text-align: center;
-}
-
-#logout-button {
-  display: block;
-  margin: 1rem auto;
-  text-align: center;
-}
-/* === Button styling === */
-
-
-
-
-/* Navigation menu styling */
-.menu {
-  list-style-type: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0;
-}
-
-.menu-item {
-  cursor: pointer;
-  padding: 10px;
-  margin: 15px;
-}
-
-.menu-item.selected {
-  background-color: #5cb85c;
-  color: white;
-}
-
-/* Account info section */
-.account-info {
-  /* margin-left: auto; /* This will push the account info to the right */
-  padding: 10px;
-  border-radius: 6px;
-  border: 2px solid #2C2A4A;
-  display: flex;
+  background-color: #aad3e6;
+  padding: 20px;
   flex-direction: column;
-  align-items: flex-end; 
+  align-items: flex-start;
 }
 
-
-/* Modal styling */
-/* .error-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 2rem;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-} */
-
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .menu {
-    flex-direction: column;
-  }
+.total-spending {
+  font-size: 25px; 
+  text-align: right;
 }
 
-
-
-/* Sections container */
-.sectionsContainer {
-  margin-top: 10px;
-}
-
-/* Section styling */
-section {
-  margin-bottom: 1rem;
-}
-
-/* Cost styling */
-.cost {
+.trip-nav {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 1rem;
-}
-
-.cost p {
-  margin-left: 10px;
-}
-
-/* Utilize the ID for specific element styling if needed */
-
-
-.new-trip-form-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.new-trip-form {
-  display: flex;
-  flex-direction: row;
   justify-content: space-evenly;
-  align-items: center;
-  max-width: 850px;
+  margin-top: 20px;
 }
 
-.new-trip-form label {
-  text-align: left;
-  font-size: 14px;
-  color: #595959;
-  margin-left: 4px;
+.trip-button {
+  padding: 60px 100px;
+  background-color: #fcc9b5;
+  border: none;
+  cursor: pointer;
+  font-size: large;
 }
 
-.new-trip input {
-  margin: 4px;
-  border-radius: 6px;
-  border: 1px solid #595959;
+.trip-button:hover {
+  background-color: #f8b8d0; 
 }
 
-/* .sectionsContainer {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-} */
-
-
-/* .main-page {
-  margin-top: 5;
-} */
-
-
-
-.hidden {
-  display: none;
+main {
+  padding: 20px;
 }
 
-.destination-dropdown {
-  font-size: 20px; /* Increase font size for larger text */
-  padding: 10px; /* Increase padding for a larger overall size */
+.estimated-cost {
+  background-color: #cde4d0; 
+  padding: 20px;
+  margin-top: 20px;
 }
 
-
+.scroll-box {
+  height: 200px;
+  overflow-y: scroll;
+  background-color: #d6eadf; 
+  margin-top: 20px;
+  padding: 10px;
+}
 
 /* ===Login Styling === */
 .login-page {
@@ -248,3 +104,7 @@ section {
   background-color: #FCC9B5; 
 }
 /* ===Login Styling === */
+
+.hidden {
+  display: none;
+}
