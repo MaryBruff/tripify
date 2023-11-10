@@ -1,59 +1,250 @@
-/* body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-} */
+body, h1, h2, h3, p, form, input, button {
+  margin: 0;
+  /* padding: 0; */
+  box-sizing: border-box;
+}
 
 body {
-  font-family: Arial, sans-serif;
+  background-color: #CfEBB6; 
+  font-family: Calibri, sans-serif; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: flex-start;
+  height: 100vh;
 }
 
 header {
   display: flex;
   justify-content: space-between;
-  background-color: #aad3e6; 
-  padding: 20px;
+  align-items: center;
+  width: 100%; 
+  padding: 10px; 
 }
 
-.welcome {
-  font-size: 30px; 
+h1 {
+  font-size: 48px;
+  margin: 10px;
+  text-align: center;
 }
 
-.total-spending {
-  font-size: 25px; 
-  text-align: right;
-}
 
-.trip-nav {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 20px;
-}
 
-.trip-button {
-  padding: 60px 100px;
-  background-color: #fcc9b5;
+/* === Button styling === */
+button {
+  background-color: #5cb85c;
+  color: white;
+  padding: 10px 15px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: large;
+  margin-top: 1rem;
 }
 
-.trip-button:hover {
-  background-color: #f8b8d0; 
+button:hover {
+  opacity: 0.8;
 }
 
-main {
-  padding: 20px;
+#loginErrorMessage {
+  color: red;
+  text-align: center;
 }
 
-.estimated-cost {
-  background-color: #cde4d0; 
-  padding: 20px;
-  margin-top: 20px;
+#logout-button {
+  display: block;
+  margin: 1rem auto;
+  text-align: center;
+}
+/* === Button styling === */
+
+
+
+
+/* Navigation menu styling */
+.menu {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
 }
 
-.scroll-box {
-  height: 150px;
-  overflow-y: scroll;
-  background-color: #d6eadf; 
-  margin-top: 20px;
+.menu-item {
+  cursor: pointer;
   padding: 10px;
+  margin: 15px;
 }
+
+.menu-item.selected {
+  background-color: #5cb85c;
+  color: white;
+}
+
+/* Account info section */
+.account-info {
+  /* margin-left: auto; /* This will push the account info to the right */
+  padding: 10px;
+  border-radius: 6px;
+  border: 2px solid #2C2A4A;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; 
+}
+
+
+/* Modal styling */
+/* .error-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+} */
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+  }
+}
+
+
+
+/* Sections container */
+.sectionsContainer {
+  margin-top: 10px;
+}
+
+/* Section styling */
+section {
+  margin-bottom: 1rem;
+}
+
+/* Cost styling */
+.cost {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.cost p {
+  margin-left: 10px;
+}
+
+/* Utilize the ID for specific element styling if needed */
+
+
+.new-trip-form-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.new-trip-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: 850px;
+}
+
+.new-trip-form label {
+  text-align: left;
+  font-size: 14px;
+  color: #595959;
+  margin-left: 4px;
+}
+
+.new-trip input {
+  margin: 4px;
+  border-radius: 6px;
+  border: 1px solid #595959;
+}
+
+/* .sectionsContainer {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+} */
+
+
+/* .main-page {
+  margin-top: 5;
+} */
+
+
+
+.hidden {
+  display: none;
+}
+
+.destination-dropdown {
+  font-size: 20px; /* Increase font size for larger text */
+  padding: 10px; /* Increase padding for a larger overall size */
+}
+
+
+
+/* ===Login Styling === */
+.login-page {
+  background-color: white; 
+  border-radius: 10px;
+  padding: 20px; 
+  text-align: center; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+  width: 100%;
+  max-width: 400px; 
+}
+
+.login-page h1 {
+  font-size: 70pt; 
+  color: #009D73;
+  margin-bottom: 1rem; 
+}
+
+.login-page h2 {
+  color: #009D73;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-top: 10px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #FCC9B5;
+  border-radius: 5px; 
+}
+
+.login-form button {
+  background-color: #009D73; 
+  color: white; 
+  padding: 10px;
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
+  font-weight: bold; 
+  margin-top: 1rem;
+}
+
+.login-form button:hover {
+  background-color: #FCC9B5; 
+}
+/* ===Login Styling === */
