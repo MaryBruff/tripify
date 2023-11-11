@@ -1,135 +1,129 @@
 import "./css/styles.css";
 
-import {promises} from './apiCalls.js';
+import {promises, oneTravelerData, fetchTravelerData, allDestinationsData} from './apiCalls.js';
 
-import {displayPastUserTrips, displayPendingUserTrips} from './domUpdates'
+import {displayPastUserTrips, displayPendingUserTrips, makeNewBooking, showBookingPage} from './domUpdates'
 
+import {calculateTripsCost, populateDestinations, calculateSingleTripCost} from './functions.js'
 
 
 
 
 // === GLobal === //
 export let newTripObject = {};
-
+let userId = null;
 
 
 
 const mainPageLoad = () => {
-  displayPastUserTrips(2, newTripObject.trips, newTripObject.destinations);
-  displayPendingUserTrips(2, newTripObject.trips, newTripObject.destinations)
-  console.log('newTripObject',newTripObject)
-}
+  userId = 2; // Hardcoded for now, will be dynamic later
+  displayPastUserTrips(userId, newTripObject.trips, newTripObject.destinations);
+  displayPendingUserTrips(userId, newTripObject.trips, newTripObject.destinations);
+  
+  const totalCost = calculateTripsCost(userId, newTripObject.trips, newTripObject.destinations);
+  document.querySelector('.total-cost').innerHTML = totalCost.toFixed(2); 
+};
 
-window.addEventListener('load', () => {
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Fetch data and initialize the page
   Promise.all(promises)
-  .then(response => {
-    const [allTravelersData, allTripsData, allDestinationsData] = response;
-    newTripObject.travelers = allTravelersData;
-    newTripObject.trips = allTripsData;
-    newTripObject.destinations = allDestinationsData;
-  })
-  .then(mainPageLoad)
-});
+    .then(response => {
+      const [allTravelersData, allTripsData, allDestinationsData] = response;
+      newTripObject.travelers = allTravelersData;
+      newTripObject.trips = allTripsData;
+      newTripObject.destinations = allDestinationsData;
+
+      populateDestinations(allDestinationsData); // Populate destinations
+      mainPageLoad(); // Call mainPageLoad function
+    });
+
+  // Define the 'Book New Trip' button
+  const bookNewTripButton = document.getElementById('bookNewTripBtn');
+  if (bookNewTripButton) {
+    bookNewTripButton.addEventListener('click', () => {
+      makeNewBooking(newTripObject, userId);
+    });
+  }
+
+  
+  // Define and add event listener for the new trip form submission
+  const newTripForm = document.getElementById('newTripForm');
+
+  if (newTripForm) {
+    newTripForm.addEventListener('submit', function(event) {
+      // event.preventDefault();
+  
+      // Extract values from the form
+      const destinationId = document.getElementById('trip-destinations-input').value;
+      const travelers = parseInt(document.getElementById('trip-numTravelers-input').value);
+      const date = document.getElementById('trip-date-input').value;
+      const duration = parseInt(document.getElementById('trip-duration-input').value);
+  
+      // Calculate the cost of the single trip
+      const singleTripCost = calculateSingleTripCost(destinationId, travelers, duration, newTripObject.destinations);
+      document.getElementById('totalTripCost').innerText = `$${singleTripCost.toFixed(2)}`;
+  
+      // Calculate and update the total yearly spending
+      const yearlySpending = calculateTripsCost(userId, newTripObject.trips, newTripObject.destinations);
+      document.querySelector('.total-cost').innerText = yearlySpending.toFixed(2);
+    });
+  }
+}
+);
 
 
-//buttons not working will check back later 
 
-// pastTripsButton.addEventListener('click', () => {
-//   if (currentUserId !== null) {
-//     displayPastUserTrips(currentUserId, mainData.trips, mainData.destinations);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const loginForm = document.getElementById('loginForm');
+
+// loginForm.addEventListener('submit', function(event) {
+//   // ...login logic...
+//   if (validateCredentials(username, password)) {
+//     const userId = extractUserId(username);
+//     if (userId) {
+//       oneTravelerData(userId)
+//         .then(userData => {
+//           showDashboard();
+//           newTripObject = userData;
+//           mainPageLoad(userId); // Pass the dynamically determined userId
+//         });
+//     } else {
+//       alert('Invalid username format');
+//     }
 //   } else {
-//     console.error('No user is currently logged in.');
+//     alert('Invalid credentials');
 //   }
 // });
 
-// pendingTripsButton.addEventListener('click', () => {
-//   if (currentUserId !== null) {
-//     displayPendingUserTrips(currentUserId, mainData.trips, mainData.destinations);
-//   } else {
-//     console.error('No user is currently logged in.');
-//   }
-// });
-
-// futureTripsButton.addEventListener('click', () => {
-//   if (currentUserId !== null) {
-//     displayFutureUserTrips(currentUserId, mainData.trips, mainData.destinations);
-//   } else {
-//     console.error('No user is currently logged in.');
-//   }
-// });
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const initDashboard = () => {
-//   const fetchPromises = [fetchTravelers(), fetchTrips(), fetchDestinations()];
-
-//   Promise.all(fetchPromises).then((data) => {
-//     travelers = data[0].travelers;
-//     trips = data[1].trips;
-//     destinations = data[2].destinations;
-
-//     // Assuming currentUser is set after login and represents the logged in user
-//     const userTrips = getTripData(currentUser.id, trips);
-//     const currentDate = new Date(); // Today's date for categorizing trips
-//     const { pastTrips, upcomingTrips, pendingTrips } = categorizeTrips(userTrips, currentDate);
-//     const userDestinations = getDestinationData(userTrips, destinations);
-
-//     // Display trips on the dashboard
-//     displayUserTrips(pastTrips, upcomingTrips, pendingTrips, userDestinations);
-//   }).catch(error => {
-//     console.error("Error initializing dashboard:", error);
-//   });
-// };
-
-// window.addEventListener("load", initDashboard);
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // document.addEventListener('DOMContentLoaded', () => {
-  //   const loginForm = document.querySelector('.login-form');
-  //   const logoutButton = document.getElementById('logout-button');
-  
-  //   loginForm.addEventListener('submit', (event) => {
-  //     event.preventDefault();
-  //     const username = document.getElementById('login-username-input').value;
-  //     const password = document.getElementById('login-password-input').value;
-  
-  //     if (validateCredentials(username, password)) {
-  //       const userId = getUserIdFromUsername(username);
-  //       loginUpdates.showMainPage(userId);
-  //     } else {
-  //       loginUpdates.displayLoginError('Invalid username or password.');
-  //     }
-  //   });
-  
-  //   logoutButton.addEventListener('click', () => {
-  //     loginUpdates.showLoginPage();
-  //   });
-  // });
-  
 
