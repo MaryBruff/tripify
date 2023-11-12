@@ -1,6 +1,7 @@
 //===Imports===//
-import { filterUserTrips, calculateSingleTripCost, calculateTripsCost } from "./functions";
-import { newTripObject } from "./scripts";
+import { filterUserTrips, calculateSingleTripCost, calculateTripsCost, updateTripObject} from "./functions";
+import { addNewTrip } from "./apiCalls.js";
+import { newTripObject } from "./scripts.js";
 
 //==Query Selectors==//
 
@@ -9,20 +10,22 @@ const pastTripsSection = document.getElementById("pastTripsSection");
 const pendingTripsSection = document.getElementById("pendingTripsSection");
 const futureTripsSection = document.getElementById("futureTripsSection");
 
-const destinationSelection = document.getElementById('trip-destinations-input');
+//inputs
+const destinationSelection = document.getElementById("trip-destinations-input");
 
-//buttons 
-const pendingTripsButton = document.getElementById('pendingTripsButton');
-const futureTripsButton = document.getElementById('futureTripsButton');
+//buttons
+// const pendingTripsButton = document.getElementById("pendingTripsButton");
+// const futureTripsButton = document.getElementById("futureTripsButton");
 
-
-//==Functions==//
+//===Functions===//
 export const displayPastUserTrips = (id, tripsData, destinationsData) => {
   const sortedUserTrips = filterUserTrips(id, tripsData, destinationsData);
   sortedUserTrips.past.forEach((trip) => {
-    const destination = destinationsData.find(dest => dest.id === trip.destinationID);
-    const tripImage = destination ? destination.image : 'default-image-url.jpg';
-    const tripAltText = destination ? destination.alt : 'Default description';
+    const destination = destinationsData.find(
+      (dest) => dest.id === trip.destinationID
+    );
+    const tripImage = destination ? destination.image : "default-image-url.jpg";
+    const tripAltText = destination ? destination.alt : "Default description";
 
     pastTripsSection.innerHTML += `
       <div class="trip">
@@ -38,9 +41,11 @@ export const displayPastUserTrips = (id, tripsData, destinationsData) => {
 export const displayPendingUserTrips = (id, tripsData, destinationsData) => {
   const sortedUserTrips = filterUserTrips(id, tripsData, destinationsData);
   sortedUserTrips.pending.forEach((trip) => {
-    const destination = destinationsData.find(dest => dest.id === trip.destinationID);
-    const tripImage = destination ? destination.image : 'default-image-url.jpg';
-    const tripAltText = destination ? destination.alt : 'Default description';
+    const destination = destinationsData.find(
+      (dest) => dest.id === trip.destinationID
+    );
+    const tripImage = destination ? destination.image : "default-image-url.jpg";
+    const tripAltText = destination ? destination.alt : "Default description";
 
     pendingTripsSection.innerHTML += `
       <div class="trip">
@@ -56,9 +61,11 @@ export const displayPendingUserTrips = (id, tripsData, destinationsData) => {
 export const displayFutureUserTrips = (id, tripsData, destinationsData) => {
   const sortedUserTrips = filterUserTrips(id, tripsData, destinationsData);
   sortedUserTrips.future.forEach((trip) => {
-    const destination = destinationsData.find(dest => dest.id === trip.destinationID);
-    const tripImage = destination ? destination.image : 'default-image-url.jpg';
-    const tripAltText = destination ? destination.alt : 'Default description';
+    const destination = destinationsData.find(
+      (dest) => dest.id === trip.destinationID
+    );
+    const tripImage = destination ? destination.image : "default-image-url.jpg";
+    const tripAltText = destination ? destination.alt : "Default description";
 
     futureTripsSection.innerHTML += `
       <div class="trip">
@@ -69,30 +76,45 @@ export const displayFutureUserTrips = (id, tripsData, destinationsData) => {
   });
 };
 
-
 export const makeNewBooking = (newTripObject, userId) => {
   const destinationId = document.getElementById('trip-destinations-input').value;
   const travelers = parseInt(document.getElementById('trip-numTravelers-input').value);
-  const date = document.getElementById('trip-date-input').value;
+  const date = document.getElementById('trip-date-input').value.replace(/-/g, '/');
   const duration = parseInt(document.getElementById('trip-duration-input').value);
 
   if (!userId || isNaN(travelers) || isNaN(duration)) {
     console.error('Invalid input for booking a trip');
-    // You might want to show a user-friendly error message here
+    // update error message in the UI
     return;
   }
 
   const newTrip = {
+    id: (newTripObject.trips.length + 1),
     "userID": userId,
     "status": "pending",
     "suggestedActivities": [],
-    "destinationID": destinationId,
+    "destinationID": parseInt(destinationId, 10),
     "travelers": travelers,
     "date": date,
     "duration": duration
   };
 
   newTripObject.trips.push(newTrip);
+  // Call to addNewTrip (API call)
+  addNewTrip(newTrip) //error
+    .then((response) => {
+      // Handle server response
+      if (response.message) {
+        alert(`Trip added successfully: ${response.message}`);
+        // Further UI update if necessary
+      } else {
+        throw new Error("Failed to add trip");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("Failed to add new trip. Please try again.");
+    });
 
   // Calculate and display the estimated cost for the new trip
   const singleTripCost = calculateSingleTripCost(destinationId, travelers, duration, newTripObject.destinations);
@@ -125,92 +147,32 @@ export const makeNewBooking = (newTripObject, userId) => {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//////OLD
-// export const makeNewBooking = (newTripObject, userId) => {
-//   const destinationId = document.getElementById('trip-destinations-input').value;
-//   const travelers = document.getElementById('trip-numTravelers-input').value;
-//   const date = document.getElementById('trip-date-input').value;
-//   const duration = document.getElementById('trip-duration-input').value;
-
-//   if (!userId || isNaN(parseInt(travelers)) || isNaN(parseInt(duration))) {
-//     console.error('Invalid input for booking a trip');
-//     // Implement logic to show error to the user, e.g., an alert or a modal???
-//     return;
-//   }
-
-//   const newTrip = {
-//     "userID": userId,
-//     "status": "pending",
-//     "suggestedActivities": [],
-//     "destinationID": destinationId,
-//     "travelers": parseInt(travelers),
-//     "date": date,
-//     "duration": parseInt(duration)
-//   };
-
-//   newTripObject.trips.push(newTrip);
-
-//   // console.log("New trip added:", newTrip);
-//   // console.log("Updated newTripObject:", newTripObject);
-//   displayFutureUserTrips(userId, newTripObject.trips, newTripObject.destinations);
-
-//   // Update the future trips section in the UI
-//   futureTripsSection.innerHTML += `<p>${newTrip.destinationID}: ${newTrip.date}, travelers: ${newTrip.travelers}, length: ${newTrip.duration} days</p>`;
-    
-//   // Calculate and display the estimated cost for the new trip
-//     const singleTripCost = calculateSingleTripCost(destinationId, parseInt(travelers), parseInt(duration), newTripObject.destinations);
-//     document.querySelector('.estimated').innerText = singleTripCost.toFixed(2);
-//     calculateTripsCost(userId, newTripObject.trips, newTripObject.destinations);
-// };
-
-
 export const showBookingPage = (newTripObject, trips) => {
   const { destinations } = newTripObject;
   destinations.forEach((destination) => {
     destinationSelection.innerHTML += `<option value="${destination.id}">${destination.destination}</option>`;
-  }); 
-  const newTrip = {
-    "id": trips.length,
-    "status": "pending",
-    "suggestedActivities": [],
-    "userID": 2, // hardcoded for now
-    "destinationID": 0,
-    "travelers": 0,
-    "date": " ",
-    "duration": 0
-  };
-  }
-
-  newTripForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    // Retrieve the form values inside the event handler
-    const destinationId = document.getElementById('trip-destinations-input').value;
-    const travelers = document.getElementById('trip-numTravelers-input').value;
-    const duration = document.getElementById('trip-duration-input').value;
-    
-    // Calculate the cost of the single trip using the retrieved values
-    const singleTripCost = calculateSingleTripCost(destinationId, parseInt(travelers), parseInt(duration), newTripObject.destinations);
-    document.getElementById('estimated').innerText = `$${singleTripCost.toFixed(2)}`;
-
   });
+  const newTrip = {
+    id: trips.length ,
+    status: "pending",
+    suggestedActivities: [],
+    userID: 10, // hardcoded for now
+    destinationID: 0,
+    travelers: 0,
+    date: " ",
+    duration: 0,
+  };
+};
 
+newTripForm.addEventListener("submit", function (event) {
+  event.preventDefault();
 
+  // Retrieve the form values inside the event handler
+  const destinationId = document.getElementById("trip-destinations-input").value;
+  const travelers = document.getElementById("trip-numTravelers-input").value;
+  const duration = document.getElementById("trip-duration-input").value;
+
+  // Calculate the cost of the single trip using the retrieved values
+  const singleTripCost = calculateSingleTripCost(destinationId, parseInt(travelers), parseInt(duration),newTripObject.destinations);
+  document.getElementById("estimated").innerText = `$${singleTripCost.toFixed(2)}`;
+});

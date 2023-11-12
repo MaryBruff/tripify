@@ -1,6 +1,7 @@
 //===Imports===//
 import { allTravelersData, allTrips, allDestinations } from "./scripts";
-import {displayTraveler, displayTotalCost} from './domUpdates';
+import {displayTraveler, displayTotalCost, displayFutureUserTrips } from './domUpdates';
+
 
 //===Functions===//
 
@@ -13,14 +14,6 @@ export const filterUserTrips = (id, tripsData, destinationsData) => {
       trip.destinationName = destination ? destination.destination : 'Unknown';
       return trip;
     });
-    //==old code==//
-    // const userDestinations = userTrips.map((trip) => {
-    //   trip.destinationName = destinationsData.find(
-    //     (destination) => destination.id === trip.destinationID
-    //   ).destination;
-    //   return trip;
-    // });
-        //==old code==//
     return userDestinations.reduce(
       (acc, userTrip) => {
         const tripDate = new Date(userTrip.date);
@@ -87,6 +80,7 @@ export const calculateSingleTripCost = (destinationId, travelers, duration, dest
   return 0;
 };
 
+
 //destinationSelections takes in destinationsData and returns an array of destinations
   export const getDestinationSelections = (destinationsData) => {
       return destinationsData.map(destination => destination.destination);
@@ -100,14 +94,13 @@ export const calculateSingleTripCost = (destinationId, travelers, duration, dest
       });
     };
 
+
+
     export const updateTripObject = (newTripObject, newTrip) => {
       newTripObject.trips.push(newTrip);
       console.log("Updated newTripObject with new trip:", newTripObject);
     
       // Update UI components
       displayFutureUserTrips(newTrip.userID, newTripObject.trips, newTripObject.destinations);
-      // displayPendingUserTrips(newTrip.userID, newTripObject.trips, newTripObject.destinations);
-      // displayPastUserTrips(newTrip.userID, newTripObject.trips, newTripObject.destinations);
-
     };
 

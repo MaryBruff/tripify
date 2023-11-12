@@ -1,6 +1,6 @@
 import "./css/styles.css";
 
-import {promises, oneTravelerData, fetchTravelerData, allDestinationsData} from './apiCalls.js';
+import {promises, oneTravelerData, fetchTravelerData, allDestinationsData, addNewTrip} from './apiCalls.js';
 
 import {displayPastUserTrips, displayPendingUserTrips, makeNewBooking, showBookingPage} from './domUpdates'
 
@@ -13,11 +13,10 @@ let userId = null;
 
 
 const mainPageLoad = () => {
-  userId = 2; // Hardcoded for now, will be dynamic later
+  userId = 10; // Hardcoded for now, will be dynamic later
   displayPastUserTrips(userId, newTripObject.trips, newTripObject.destinations);
   displayPendingUserTrips(userId, newTripObject.trips, newTripObject.destinations);
   
-  // Select the 'yearly' element to display yearly spending
   const yearlySpendingElement = document.getElementById('yearly');
   if (yearlySpendingElement) {
     const totalCost = calculateTripsCost(userId, newTripObject.trips, newTripObject.destinations);
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookNewTripButton = document.getElementById('bookNewTripBtn');
   if (bookNewTripButton) {
     bookNewTripButton.addEventListener('click', () => {
-      makeNewBooking(newTripObject, userId);
+      makeNewBooking(newTripObject, userId); //error
     });
   }
 
@@ -54,12 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
     newTripForm.addEventListener('submit', function(event) {
       const destinationId = document.getElementById('trip-destinations-input').value;
       const travelers = parseInt(document.getElementById('trip-numTravelers-input').value);
-      const date = document.getElementById('trip-date-input').value;
+      const date = document.getElementById('trip-date-input').value.replace(/-/g, '/');
       const duration = parseInt(document.getElementById('trip-duration-input').value);
     });
   }
-}
-);
+});
 
 
 
