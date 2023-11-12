@@ -4,14 +4,55 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Dashboard</title>
-  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <title>Tripify</title>
 </head>
 <body>
+  <main id="loginPage" class="login-page">
+    <!-- <h1>Tripify</h1> -->
+    <!-- <h2>Log In</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button type="submit">Login</button>
+  </form> -->
+
+  <!-- <div id="mainDashboard" style="display: none;"> -->
   <header>
     <h1 class="welcome">WELCOME, NAME</h1>
-    <p class="total-spending">Total Spending:</p>
+    <!-- <div class="total-spending">
+    </div> -->
+    <!-- <p class="total-spending">Yearly Spending:</p> -->
   </header>
+  <div class="new-trip-form-container">
+    <form class="new-trip-form" id="newTripForm" name="newTripFormName">
+      <div class="trip-destination-section">
+        <label for="trip-destination-input">Trip Destination: </label>
+        <select name="destinationID" id="trip-destinations-input" required>
+        </select>
+      </div>
+      <div class="trip-date-section">
+        <label for="trip-date-input">Trip Date: </label>
+        <input type="date" name="date" id="trip-date-input" required>
+      </div>
+      <div class="trip-duration-section">
+        <label for="trip-duration-input">Trip Duration: </label>
+        <input type="number" name="duration" id="trip-duration-input" min=1 required>
+      </div>
+      <div class="trip-numTravelers-section">
+        <label for="trip-numTravelers-input">Number of travelers: </label>
+        <input type="number" name="travelers" id="trip-numTravelers-input" min=1 required>
+      </div>
+      <div class="cost">
+        <p>Estimated Cost: <span class="estimated" id="estimated"></span>0</p>
+        <!-- <label>Cost: $0</label> -->
+        <!-- <p id="totalTripCost"></p> -->
+        <p>Yearly Spending: <span class="yearly" id="yearly"></span>0</p>
+      </div>
+      <div class="form-example">
+        <button type="submit" id="bookNewTripBtn">Book Trip</button>
+      </div>
+    </form>
+  </div>
   
   <nav class="trip-nav" role="navigation" aria-label="Trip navigation">
     <button class="trip-button" id="pastTripsButton" aria-label="Past Trips">Past Trips</button>
@@ -22,29 +63,28 @@
   <main>
     <section id="pastTripsSection" class="scroll-box trip-container">
       <h2>Past Trips</h2>
-      <!-- Sample trip entries with images (you can add more) -->
       <div class="trip">
-        <p>Total Spent:</p>
-        <p>Trip Details: Lorem ipsum...</p>
+        <!-- <p>Total Spent:</p>
+        <p>Trip Details: Lorem ipsum...</p> -->
       </div>
       <!-- Add more trips here -->
     </section>
   
     <section id="pendingTripsSection" class="scroll-box trip-container">
       <h2>Pending Trips</h2>
-      <!-- Pending trip entries will be similar to past trips -->
       <!-- Add pending trips here -->
     </section>
   
-    <!-- Future trips section remains unchanged -->
-    <!-- <section id="futureTripsSection" class="scroll-box">
-      Future trips will be displayed here -->
+    <!-- Future trips section -->
+    <section id="futureTripsSection" class="scroll-box">
+      <h2>Future Trips</h2>
+      <!-- Future trips will be displayed here -->
     </section>
   </main>
+<!-- </div> -->
   
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
-
+<button class='log-out hidden' name='log out' label='log out'>Log Out</button>
+<!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
 </body>
+<script src="bundle.js"></script>
 </html>
