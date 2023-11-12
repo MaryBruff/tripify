@@ -1,25 +1,17 @@
-/* body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-} */
-
 body {
   font-family: Arial, sans-serif;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  background-color: #aad3e6; 
+main {
   padding: 20px;
 }
 
-.welcome {
-  font-size: 30px; 
-}
-
-.total-spending {
-  font-size: 25px; 
-  text-align: right;
+header {
+  display: flex;
+  background-color: #aad3e6;
+  padding: 20px;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .trip-nav {
@@ -40,20 +32,114 @@ header {
   background-color: #f8b8d0; 
 }
 
-main {
-  padding: 20px;
+.trip {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: white;
 }
 
-.estimated-cost {
-  background-color: #cde4d0; 
-  padding: 20px;
-  margin-top: 20px;
+.trip img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.trip-details {
+  flex-grow: 1;
+}
+
+.trip-status {
+  font-weight: bold;
+}
+
+
+.logout-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  border: 2px outset white;
 }
 
 .scroll-box {
-  height: 150px;
+  height: 200px;
   overflow-y: scroll;
   background-color: #d6eadf; 
   margin-top: 20px;
   padding: 10px;
 }
+
+/* .estimated-cost {
+  background-color: #cde4d0; 
+  padding: 20px;
+  margin-top: 20px;
+} */
+
+/* .total-spending {
+  font-size: 25px; 
+  text-align: right;
+} */
+
+
+
+/* ===Login Styling === */
+/* .login-page {
+  background-color: white; 
+  border-radius: 10px;
+  padding: 20px; 
+  text-align: center; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+  width: 100%;
+  max-width: 400px; 
+}
+
+.login-page h1 {
+  font-size: 70pt; 
+  color: #009D73;
+  margin-bottom: 1rem; 
+}
+
+.login-page h2 {
+  color: #009D73;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-top: 10px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #FCC9B5;
+  border-radius: 5px; 
+}
+
+.login-form button {
+  background-color: #009D73; 
+  color: white; 
+  padding: 10px;
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
+  font-weight: bold; 
+  margin-top: 1rem;
+}
+
+.login-form button:hover {
+  background-color: #FCC9B5; 
+} */
+/* ===Login Styling === */
+
+/* .hidden {
+  display: none;
+} */
