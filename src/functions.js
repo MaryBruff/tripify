@@ -74,23 +74,7 @@ export const calculateTripCosts = (idOrDestinationId, tripsData, destinationsDat
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export const logInValidation = (username, password, travelersData) => {
+// export const userLogin = (username, password, travelersData) => {
 //   let userId = 0;
 //   if (password === 'travel'){
 //     const parts = username.split('traveler');
@@ -103,3 +87,18 @@ export const calculateTripCosts = (idOrDestinationId, tripsData, destinationsDat
 //   }
 //   return Number(userId);
 // }
+
+export const userLogin = (username, password, travelersData) => {
+  if (password !== 'travel') {
+    return { error: 'Incorrect Password!' };
+  }
+
+  const userId = username.split('traveler')[1];
+  const user = travelersData.find(traveler => traveler.id === Number(userId));
+
+  if (!user) {
+    return { error: `User ${userId} does not exist.` };
+  }
+
+  return { userId: user.id, userName: user.name }; // Assuming the traveler object has a 'name' field
+};

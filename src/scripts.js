@@ -4,13 +4,57 @@ import {promises, addNewTrip} from './apiCalls.js';
 
 import {populateDestinations, displayUserTrips, createTripHTML, calculateTotalCost} from './domUpdates'
 
-import { filterUserTrips, calculateTripCosts} from "./functions";
+import {userLogin} from "./functions";
 
 // === GLobal === //
 export let newTripObject = {};
 let userId = null;
 
 
+
+const loginButton = document.querySelector('#login-button-input');
+const userName = document.getElementById('login-username-input');
+const password = document.getElementById('login-password-input');
+
+// loginButton.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   const validationResult = userLogin(userName.value, password.value, newTripObject.travelers);
+
+//   if (typeof validationResult === 'number') {
+//     userId = validationResult;
+//     mainPageLoad(userId);
+//     displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'pending');
+//     displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'past');
+
+//     document.getElementById('loginPage').classList.add('hidden');
+//     document.getElementById('mainPage').classList.remove('hidden');
+//   } else {
+//     document.getElementById('loginErrorMessage').innerText = validationResult; // Show error message
+//   }
+// });
+
+
+loginButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  const result = userLogin(userName.value, password.value, newTripObject.travelers);
+
+  if (result.error) {
+    document.getElementById('loginErrorMessage').innerText = result.error; // Show error message
+  } else {
+    userId = result.userId;
+    mainPageLoad(userId);
+    displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'pending');
+    displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'past');
+
+    // Update the welcome message
+    const welcomeMessage = `Hello, ${result.userName}`;
+    document.querySelector('.welcome').textContent = welcomeMessage;
+
+    // Toggle visibility
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('mainPage').classList.remove('hidden');
+  }
+});
 
 
 window.onload = () => {
@@ -21,16 +65,15 @@ window.onload = () => {
       newTripObject.travelers = allTravelersData;
       newTripObject.trips = allTripsData;
       newTripObject.destinations = allDestinationsData;
-      
+            
       populateDestinations(allDestinationsData); 
       mainPageLoad(); 
     })
     .catch((error) => console.log('Request failed from Promise.all', error));
 }
 
-const mainPageLoad = () => {
-  userId = 33; // Hardcoded for now, will be dynamic later
 
+const mainPageLoad = () => {
   // Display past trips
   displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'past');
 
@@ -122,3 +165,21 @@ if (bookNewTripButton) {
   });
 }
 
+const logoutButton = document.querySelector('.log-out');
+
+logoutButton.addEventListener('click', () => {
+  // Hide the main page and show the login page
+  document.getElementById('mainPage').classList.add('hidden');
+  document.getElementById('loginPage').classList.remove('hidden');
+
+  // Clear any user-specific data from the main page
+  // For example, clear user name, reset forms, etc.
+
+  // Reset the login form
+  userName.value = '';
+  password.value = '';
+  document.getElementById('loginErrorMessage').innerText = ''; // Clear any login error message
+
+  // You can also reset any global variables related to user state
+  // For example: userId = null;
+});

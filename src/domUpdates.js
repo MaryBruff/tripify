@@ -1,7 +1,7 @@
 //===Imports===//
 import { filterUserTrips, calculateTripCosts} from "./functions";
 import { addNewTrip } from "./apiCalls.js";
-import { newTripObject, makeNewBooking} from "./scripts.js";
+import { newTripObject, makeNewBooking, } from "./scripts.js";
 
 
 //==Query Selectors==//
@@ -10,6 +10,8 @@ const pastTripsSection = document.getElementById("pastTripsSection");
 const pendingTripsSection = document.getElementById("pendingTripsSection");
 //Inputs
 const destinationSelection = document.getElementById("trip-destinations-input");
+
+
 
 //===Functions===//
 
