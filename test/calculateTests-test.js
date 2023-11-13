@@ -1,8 +1,8 @@
-import { expect } from "chai";
+import { expect } from 'chai';
 import { destinationsData, travelersData, tripsData } from '../src/Data/sample-test-data';
 import { calculateTripCosts, filterUserTrips } from "../src/functions.js"
 
-describe('calculateTripCosts - Single Trip Calculation', () => {
+describe('calculateTripCosts', () => {
     let userId, currentYear, destinationId, trip, cost, expectedCost, totalCost, expectedTotalCost, invalidDestinationId, travelers, duration, modifiedTripsData, includePendingTrips;
 
     beforeEach(() => {
