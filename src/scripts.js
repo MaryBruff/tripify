@@ -31,10 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const mainPageLoad = () => {
-  userId = 35; // Hardcoded for now, will be dynamic later
+  userId = 24; // Hardcoded for now, will be dynamic later
   displayPastUserTrips(userId, newTripObject.trips, newTripObject.destinations);
   displayPendingUserTrips(userId, newTripObject.trips, newTripObject.destinations);
-  // showBookingPage();
 };
 
 
