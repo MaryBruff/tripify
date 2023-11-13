@@ -13,8 +13,8 @@ export const filterUserTrips = (id, tripsData, destinationsData) => {
   }
 
   const userDestinations = userTrips.map((trip) => {
-    const destination = destinationsData.find(destination => destination.id === trip.destinationID);
-    trip.destinationName = destination ? destination.destination : 'Unknown';
+    const destination = destinationsData.find((destination) => destination.id === trip.destinationID);
+    trip.destinationName = destination ? destination.destination : "Unknown";
     return trip;
   });
 
@@ -37,10 +37,10 @@ export const filterUserTrips = (id, tripsData, destinationsData) => {
   );
 };
 
-//=== Calculate total cost for a single trip or all trips in the current year ===// 
+//=== Calculate total cost for a single trip or all trips in the current year ===//
 export const calculateTripCosts = (idOrDestinationId, tripsData, destinationsData, isSingleTrip = false, travelers = 0, duration = 0, includePendingTrips = false) => {
   const calculateCost = (destinationId, travelers, duration) => {
-    const destination = destinationsData.find(dest => dest.id === parseInt(destinationId));
+    const destination = destinationsData.find((dest) => dest.id === parseInt(destinationId));
     if (destination) {
       const flightCost = destination.estimatedFlightCostPerPerson * travelers;
       const lodgingCost = destination.estimatedLodgingCostPerDay * duration * travelers;
@@ -58,11 +58,10 @@ export const calculateTripCosts = (idOrDestinationId, tripsData, destinationsDat
 
     // Filter trips based on the year and possibly the status
     const filteredTrips = filterUserTrips(idOrDestinationId, tripsData, destinationsData);
-    const currentYearTrips = (includePendingTrips ? [...filteredTrips.past, ...filteredTrips.pending] : filteredTrips.past)
-      .filter(trip => {
-        const tripYear = new Date(trip.date).getFullYear();
-        return tripYear === currentYear;
-      });
+    const currentYearTrips = (includePendingTrips ? [...filteredTrips.past, ...filteredTrips.pending] : filteredTrips.past).filter((trip) => {
+      const tripYear = new Date(trip.date).getFullYear();
+      return tripYear === currentYear;
+    });
 
     // Calculate total cost for each trip, including the agent's fee
     return currentYearTrips.reduce((acc, trip) => {
@@ -74,16 +73,16 @@ export const calculateTripCosts = (idOrDestinationId, tripsData, destinationsDat
 };
 
 export const userLogin = (username, password, travelersData) => {
-  if (password !== 'travel') {
-    return { error: 'Incorrect Password!' };
+  if (password !== "travel") {
+    return { error: "Incorrect Password!" };
   }
-//
-  if (!username.startsWith('traveler') || isNaN(username.split('traveler')[1])) {
-    return { error: 'Invalid Username Format' };
+  //
+  if (!username.startsWith("traveler") || isNaN(username.split("traveler")[1])) {
+    return { error: "Invalid Username Format" };
   }
 
-  const userId = username.split('traveler')[1];
-  const user = travelersData.find(traveler => traveler.id === Number(userId));
+  const userId = username.split("traveler")[1];
+  const user = travelersData.find((traveler) => traveler.id === Number(userId));
 
   if (!user) {
     return { error: `User ${userId} does not exist.` };
