@@ -2,17 +2,11 @@ import "./css/styles.css";
 
 import {promises} from './apiCalls.js';
 
-import {displayPastUserTrips, displayPendingUserTrips, makeNewBooking, populateDestinations} from './domUpdates'
-
-
+import {makeNewBooking, populateDestinations, displayUserTrips} from './domUpdates'
 
 // === GLobal === //
 export let newTripObject = {};
 let userId = null;
-
-// const userNameInput = document.getElementById("login-username-input");
-// const passwordInput = document.getElementById("login-password-input");
-// const logInButton = document.getElementById("login-button-input");
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,10 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
   .catch((error) => console.log('Request failed from Promise.all', error));
 });
 
+
 const mainPageLoad = () => {
-  userId = 24; // Hardcoded for now, will be dynamic later
-  displayPastUserTrips(userId, newTripObject.trips, newTripObject.destinations);
-  displayPendingUserTrips(userId, newTripObject.trips, newTripObject.destinations);
+  userId = 33; // Hardcoded for now, will be dynamic later
+
+  // Display past trips
+  displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'past');
+
+  // Display pending trips
+  displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'pending');
 };
 
 
@@ -44,35 +43,4 @@ if (bookNewTripButton) {
     makeNewBooking(newTripObject, userId); 
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

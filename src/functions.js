@@ -4,7 +4,7 @@
 export const filterUserTrips = (id, tripsData, destinationsData) => {
   const userTrips = tripsData.filter((trip) => trip.userID === id);
 
-  // Handle case when no trips are found for the user
+  // Handle case when no trips are found for the user for sad test
   if (userTrips.length === 0) {
     return {
       pending: [],
@@ -38,7 +38,7 @@ export const filterUserTrips = (id, tripsData, destinationsData) => {
 };
 
 //=== Calculate total cost for a single trip or all trips in the current year ===// 
-export const calculateTripCosts = (idOrDestinationId, tripsData, destinationsData, isSingleTrip = false, travelers = 0, duration = 0) => {
+export const calculateTripCosts = (idOrDestinationId, tripsData, destinationsData, isSingleTrip = false, travelers = 0, duration = 0, includePendingTrips = false) => {
   const calculateCost = (destinationId, travelers, duration) => {
     const destination = destinationsData.find(dest => dest.id === parseInt(destinationId));
     if (destination) {
@@ -50,16 +50,19 @@ export const calculateTripCosts = (idOrDestinationId, tripsData, destinationsDat
   };
 
   if (isSingleTrip) {
+    // Calculate cost for a single trip
     return calculateCost(idOrDestinationId, travelers, duration);
   } else {
+    // Calculate total cost for all trips in the current year
     const currentYear = new Date().getFullYear();
-    const userTrips = filterUserTrips(idOrDestinationId, tripsData, destinationsData);
 
-    // Filter out trips not in the current year
-    const currentYearTrips = userTrips.past.filter(trip => {
-      const tripYear = new Date(trip.date).getFullYear();
-      return tripYear === currentYear;
-    });
+    // Filter trips based on the year and possibly the status
+    const filteredTrips = filterUserTrips(idOrDestinationId, tripsData, destinationsData);
+    const currentYearTrips = (includePendingTrips ? [...filteredTrips.past, ...filteredTrips.pending] : filteredTrips.past)
+      .filter(trip => {
+        const tripYear = new Date(trip.date).getFullYear();
+        return tripYear === currentYear;
+      });
 
     // Calculate total cost for each trip, including the agent's fee
     return currentYearTrips.reduce((acc, trip) => {
@@ -69,8 +72,6 @@ export const calculateTripCosts = (idOrDestinationId, tripsData, destinationsDat
     }, 0);
   }
 };
-
-
 
 
 

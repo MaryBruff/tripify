@@ -15,23 +15,35 @@ const pendingTripsSection = document.getElementById("pendingTripsSection");
 const destinationSelection = document.getElementById("trip-destinations-input");
 
 //===Functions===//
-//displays trips
-export const createTripElement = (trip, destinationsData) => {
+
+export const createTripHTML = (trip, destinationsData, isNewTrip = false) => {
   const destination = destinationsData.find(dest => dest.id === trip.destinationID) || {};
   const tripImage = destination.image || "default-image-url.jpg";
   const tripAltText = destination.alt || "Default description";
 
-  return `
+  let tripHTML = `
     <div class="trip">
       <img src="${tripImage}" alt="${tripAltText}" class="trip-image">
       <div class="trip-details">
         <p>${destination.destination || 'Unknown'}: ${trip.date}, Travelers: ${trip.travelers}, Days: ${trip.duration}</p>
-        ${trip.status === 'pending' 
-          ? `<p>Total Cost (incl. agent's fee): $${calculateTotalCost(trip, destinationsData).toFixed(2)}</p>`
-          : '<p class="trip-status">Status: Completed</p>'
-        }
-      </div>
-    </div>`;
+  `;
+
+  if (isNewTrip) {
+    const totalCostWithFee = calculateTotalCost(trip, destinationsData);
+    tripHTML += `<p>Estimated Trip Cost (incl. agent's fee 10%): $${totalCostWithFee.toFixed(2)}</p><p>Status: Pending</p>`;
+  } else if (trip.status === 'pending') {
+    tripHTML += `<p>Estimated Trip Cost (incl. agent's fee 10%): $${calculateTotalCost(trip, destinationsData).toFixed(2)}</p>`;
+  } else {
+    tripHTML += '<p class="trip-status">Status: Completed</p>';
+  }
+
+  tripHTML += `</div></div>`;
+  return tripHTML;
+}
+
+
+export const createTripElement = (trip, destinationsData) => {
+  return createTripHTML(trip, destinationsData);
 }
 
 export const calculateTotalCost = (trip, destinationsData) => {
@@ -40,16 +52,21 @@ export const calculateTotalCost = (trip, destinationsData) => {
   return singleTripCost + agentFee;
 }
 
-export const displayPastUserTrips = (id, tripsData, destinationsData) => {
+//check trips and display trips
+export const displayUserTrips = (id, tripsData, destinationsData, tripType) => {
   const sortedUserTrips = filterUserTrips(id, tripsData, destinationsData);
-  pastTripsSection.innerHTML = sortedUserTrips.past.map(trip => createTripElement(trip, destinationsData)).join('');
-};
+  let targetSection;
 
-export const displayPendingUserTrips = (id, tripsData, destinationsData) => {
-  const sortedUserTrips = filterUserTrips(id, tripsData, destinationsData);
-  pendingTripsSection.innerHTML = sortedUserTrips.pending.map(trip => createTripElement(trip, destinationsData)).join('');
+  if (tripType === 'past') {
+    targetSection = pastTripsSection;
+  } else if (tripType === 'pending') {
+    targetSection = pendingTripsSection;
+  } else {
+    console.error('Invalid trip type');
+    return;
+  }
+  targetSection.innerHTML = sortedUserTrips[tripType].map(trip => createTripElement(trip, destinationsData)).join('');
 };
-
 
 export const makeNewBooking = (newTripObject, userId) => {
   const destinationId = document.getElementById('trip-destinations-input').value;
@@ -57,12 +74,25 @@ export const makeNewBooking = (newTripObject, userId) => {
   const date = document.getElementById('trip-date-input').value.replace(/-/g, '/');
   const duration = parseInt(document.getElementById('trip-duration-input').value);
 
+  // Validate input
   if (!userId || isNaN(travelers) || isNaN(duration)) {
     console.error('Invalid input for booking a trip');
-    // update error message in the UI
+    // Update error message in the UI
     return;
   }
 
+  // Convert input date to Date object and get current date
+  const inputDate = new Date(date);
+  const currentDate = new Date();
+
+  // Check if the input date is in the past
+  if (inputDate < currentDate) {
+    console.error('Cannot book a trip for a past date');
+    alert('Cannot book a trip for a past date');
+    return;
+  }
+
+  // Create a new trip object
   const newTrip = {
     id: (newTripObject.trips.length + 1),
     "userID": userId,
@@ -74,14 +104,34 @@ export const makeNewBooking = (newTripObject, userId) => {
     "duration": duration
   };
 
+  // Add the new trip to the trip object
   newTripObject.trips.push(newTrip);
+
   // Call to addNewTrip (API call)
-  addNewTrip(newTrip) //error
+  addNewTrip(newTrip)
     .then((response) => {
       // Handle server response
       if (response.message) {
         alert(`Trip added successfully: ${response.message}`);
-        // Further UI update if necessary
+
+        // Clear the form fields
+        document.getElementById('trip-destinations-input').value = '';
+        document.getElementById('trip-numTravelers-input').value = '';
+        document.getElementById('trip-date-input').value = '';
+        document.getElementById('trip-duration-input').value = '';
+
+        // Calculate and update total cost with fee
+        const totalCostWithFee = calculateTotalCost(newTrip, newTripObject.destinations);
+
+        // Accumulate yearly total
+        const yearlyTotalElement = document.querySelector('.yearly');
+        const currentYearlyTotal = parseFloat(yearlyTotalElement.innerText.replace(/\$/g, '')) || 0;
+        const newYearlyTotal = currentYearlyTotal + totalCostWithFee;
+        yearlyTotalElement.innerText = `$${newYearlyTotal.toFixed(2)}`;
+
+        // Generate trip HTML and append it
+        const tripHTML = createTripHTML(newTrip, newTripObject.destinations, true);
+        pendingTripsSection.innerHTML += tripHTML;
       } else {
         throw new Error("Failed to add trip");
       }
@@ -90,51 +140,14 @@ export const makeNewBooking = (newTripObject, userId) => {
       console.error("Error:", error);
       alert("Failed to add new trip. Please try again.");
     });
-
-  // Calculate and display the estimated cost for the new trip using the new function
-  const singleTripCost = calculateTripCosts(destinationId, null, newTripObject.destinations, true, travelers, duration);
-  const agentFee = singleTripCost * 0.1; // 10% agent fee
-  const totalCostWithFee = singleTripCost + agentFee;
-
-  // Add the new trip to the future trips section in the UI
-  const destination = newTripObject.destinations.find(dest => dest.id === parseInt(destinationId));
-  const tripImage = destination ? destination.image : 'default-image-url.jpg';
-  const tripAltText = destination ? destination.alt : 'Default description';
-
-  pendingTripsSection.innerHTML += `
-    <div class="trip">
-      <img src="${tripImage}" alt="${tripAltText}" class="trip-image">
-      <div class="trip-details">
-        <p>${destination ? destination.destination : 'Unknown'}: ${date}, Travelers: ${travelers}, Days: ${duration}</p>
-        <p>Total Cost (incl. agent's fee): $${totalCostWithFee.toFixed(2)}</p>
-        <p>Status: Pending</p>
-      </div>
-    </div>`;
-
-  // Update the estimated cost and yearly spending in the UI
-  document.querySelector('.estimated').innerText = `$${totalCostWithFee.toFixed(2)}`;
 };
 
-export const populateDestinations = (destinationsData, trips = []) => {
+
+export const populateDestinations = (destinationsData) => {
   const destinationSelect = document.getElementById('trip-destinations-input');
   destinationSelect.innerHTML = destinationsData.map(destination => 
     `<option value="${destination.id}">${destination.destination}</option>`
   ).join('');
-
-  // Initialize newTrip only if trips array is provided
-  if (trips.length > 0) {
-    const newTrip = {
-      id: trips.length,
-      status: "pending",
-      suggestedActivities: [],
-      userID: 0,
-      destinationID: 0,
-      travelers: 0,
-      date: " ",
-      duration: 0,
-    };
-    // Additional logic for newTrip if necessary
-  }
 };
 
 
@@ -157,8 +170,6 @@ newTripForm.addEventListener('submit', function(event) {
   const singleTripCost = calculateTripCosts(destinationId, null, newTripObject.destinations, true, travelers, duration);
   
   // Update the UI with the calculated cost
-  document.getElementById("estimated").innerText = `$${singleTripCost.toFixed(2)}`;
-
-  // Add any additional logic needed for booking the trip or updating the UI
+  document.getElementById("yearly").innerText = `$${singleTripCost.toFixed(2)}`;
+  
 });
-
