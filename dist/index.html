@@ -34,43 +34,41 @@
 
   <div class="new-trip-form-container">
     <form class="new-trip-form" id="newTripForm" name="newTripFormName">
-      <div class="trip-destination-section">
-        <label for="trip-destination-input">Trip Destination: </label>
-        <select name="destinationID" id="trip-destinations-input" required>
-        </select>
+      <div class="trip-destination-section" aria-labelledby="trip-destination-label">
+        <label id="trip-destination-label" for="trip-destinations-input">Trip Destination: </label>
+        <select name="destinationID" id="trip-destinations-input" required></select>
       </div>
-
-      <div class="trip-date-section">
-        <label for="trip-date-input">Trip Date: </label>
+  
+      <div class="trip-date-section" aria-labelledby="trip-date-label">
+        <label id="trip-date-label" for="trip-date-input">Trip Date: </label>
         <input type="date" name="date" id="trip-date-input" required>
       </div>
-
-      <div class="trip-duration-section">
-        <label for="trip-duration-input">Trip Duration: </label>
-        <input type="number" name="duration" id="trip-duration-input" min=1 required>
+  
+      <div class="trip-duration-section" aria-labelledby="trip-duration-label">
+        <label id="trip-duration-label" for="trip-duration-input">Trip Duration: </label>
+        <input type="number" name="duration" id="trip-duration-input" min="1" required>
       </div>
-
-      <div class="trip-numTravelers-section">
-        <label for="trip-numTravelers-input">Number of travelers: </label>
-        <input type="number" name="travelers" id="trip-numTravelers-input" min=1 required>
+  
+      <div class="trip-numTravelers-section" aria-labelledby="trip-numTravelers-label">
+        <label id="trip-numTravelers-label" for="trip-numTravelers-input">Number of Travelers: </label>
+        <input type="number" name="travelers" id="trip-numTravelers-input" min="1" required>
       </div>
-      
+  
       <div class="cost">
-        <p>Estimated Cost: <span class="estimated" id="estimated"></span>0</p>
         <p>Yearly Spending: <span class="yearly" id="yearly"></span>0</p>
       </div>
-
+  
       <div class="form-example">
-        <button type="submit" id="bookNewTripBtn">Book Trip</button>
-      </div>
+        <button type="submit" id="bookNewTripBtn" aria-label="Book Trip">Book Trip</button>
 
+      </div>
     </form>
   </div>
+  
   
   <nav class="trip-nav" role="navigation" aria-label="Trip navigation">
     <button class="trip-button" id="pastTripsButton" aria-label="Past Trips">Past Trips</button>
     <button class="trip-button" id="pendingTripsButton" aria-label="Pending Trips">Pending Trips</button>
-    <!-- <button class="trip-button" id="futureTripsButton" aria-label="Future Trips">Future Trips</button> -->
   </nav>
   
   <main>
@@ -85,16 +83,9 @@
   
     <section id="pendingTripsSection" class="scroll-box trip-container">
       <h2>Pending Trips</h2>
+      <p>Estimated Cost: <span class="estimated" id="estimated"></span>0</p>
       <!-- Add pending trips here -->
-    </section>
-  
-    <!-- Future trips section -->
-    <!-- <section id="futureTripsSection" class="scroll-box">
-      <h2>Future Trips</h2> -->
-      <!-- Future trips will be displayed here -->
-    <!-- </section> -->
-
-    
+    </section>   
     <button class='log-out hidden' name='log out' label='log out'>Log Out</button>
     <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   </main>
