@@ -2,7 +2,6 @@ const allTravelersData = fetch("http://localhost:3001/api/v1/travelers")
   .then((response) => response.json())
   .then((data) => data.travelers);
 
-
 export const oneTravelerData = (id) => {
   return fetch(`http://localhost:3001/api/v1/travelers/${id}`)
     .then(response => {
@@ -20,16 +19,13 @@ export const oneTravelerData = (id) => {
     });
 }
 
-
 const allTripsData = fetch("http://localhost:3001/api/v1/trips")
   .then((response) => response.json())
   .then((data) => data.trips);
 
-
 const allDestinationsData = fetch("http://localhost:3001/api/v1/destinations")
   .then((response) => response.json())
   .then((data) => data.destinations);
-
 
   export const addNewTrip = (data) => {
     return fetch("http://localhost:3001/api/v1/trips", {
@@ -50,9 +46,5 @@ const allDestinationsData = fetch("http://localhost:3001/api/v1/destinations")
       return newTrip;
     })
   };
-  
 
-  export const promises = [allTravelersData, allTripsData, allDestinationsData];
-  
-
-  
+export const promises = [allTravelersData, allTripsData, allDestinationsData];

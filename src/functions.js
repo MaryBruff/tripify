@@ -1,6 +1,6 @@
 //===Functions===//
 
-//===Filter User Trips===//
+//Filter User Trips//
 export const filterUserTrips = (id, tripsData, destinationsData) => {
   const userTrips = tripsData.filter((trip) => trip.userID === id);
 
