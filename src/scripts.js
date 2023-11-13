@@ -1,43 +1,73 @@
 import "./css/styles.css";
+import { promises, addNewTrip } from './apiCalls.js';
+import { populateDestinations, displayUserTrips, createTripHTML, calculateTotalCost } from './domUpdates';
+import { userLogin } from "./functions";
 
-import {promises, addNewTrip} from './apiCalls.js';
-
-import {populateDestinations, displayUserTrips, createTripHTML, calculateTotalCost} from './domUpdates'
-
-import { filterUserTrips, calculateTripCosts} from "./functions";
-
-// === GLobal === //
+// === Global Variables & Selectors === //
 export let newTripObject = {};
 let userId = null;
 
+const loginButton = document.querySelector('#login-button-input');
+const userName = document.getElementById('login-username-input');
+const password = document.getElementById('login-password-input');
+const logoutButton = document.querySelector('.log-out');
+const bookNewTripButton = document.getElementById('bookNewTripBtn');
+const messageContainer = document.getElementById('messageContainer');
 
+// === Helper Functions === //
+const updateVisibility = (showMainPage) => {
+  document.getElementById('loginPage').classList.toggle('hidden', showMainPage);
+  document.getElementById('mainPage').classList.toggle('hidden', !showMainPage);
+};
 
+const resetLoginForm = () => {
+  userName.value = '';
+  password.value = '';
+  document.getElementById('loginErrorMessage').innerText = '';
+};
+
+const handleLogin = (e) => {
+  e.preventDefault();
+  const result = userLogin(userName.value, password.value, newTripObject.travelers);
+
+  if (result.error) {
+    document.getElementById('loginErrorMessage').innerText = result.error;
+  } else {
+    userId = result.userId;
+    updateMainPage(userId, result.userName);
+  }
+};
+
+const updateMainPage = (userId, userName) => {
+  displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'past');
+  displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'pending');
+  document.querySelector('.welcome').textContent = `Welcome back, ${userName}!`;
+  updateVisibility(true);
+};
+
+// === Event Listeners === //
+loginButton.addEventListener('click', handleLogin);
 
 window.onload = () => {
-  // Fetch data and initialize the page
   Promise.all(promises)
     .then(response => {
       const [allTravelersData, allTripsData, allDestinationsData] = response;
       newTripObject.travelers = allTravelersData;
       newTripObject.trips = allTripsData;
       newTripObject.destinations = allDestinationsData;
-      
-      populateDestinations(allDestinationsData); 
-      mainPageLoad(); 
+      populateDestinations(allDestinationsData);
     })
-    .catch((error) => console.log('Request failed from Promise.all', error));
-}
-
-const mainPageLoad = () => {
-  userId = 33; // Hardcoded for now, will be dynamic later
-
-  // Display past trips
-  displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'past');
-
-  // Display pending trips
-  displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'pending');
+    .catch(error => console.log('Request failed from Promise.all', error));
 };
 
+bookNewTripButton.addEventListener('click', () => {
+  makeNewBooking(newTripObject, userId);
+});
+
+logoutButton.addEventListener('click', () => {
+  updateVisibility(false);
+  resetLoginForm();
+});
 
 //Create new booking
 export const makeNewBooking = (newTripObject, userId) => {
@@ -45,11 +75,13 @@ export const makeNewBooking = (newTripObject, userId) => {
   const travelers = parseInt(document.getElementById('trip-numTravelers-input').value);
   const date = document.getElementById('trip-date-input').value.replace(/-/g, '/');
   const duration = parseInt(document.getElementById('trip-duration-input').value);
-
+  const messageContainer = document.getElementById('messageContainer');
+  
   // Validate input
   if (!userId || isNaN(travelers) || isNaN(duration)) {
     console.error('Invalid input for booking a trip');
-    // Update error message in the UI
+    messageContainer.textContent = 'Invalid input for booking a trip. Please check your entries.';
+    messageContainer.classList.add('error-message');
     return;
   }
 
@@ -57,12 +89,14 @@ export const makeNewBooking = (newTripObject, userId) => {
   const inputDate = new Date(date);
   const currentDate = new Date();
 
-  // Check if the input date is in the past
-  if (inputDate < currentDate) {
-    console.error('Cannot book a trip for a past date');
-    alert('Cannot book a trip for a past date');
-    return;
-  }
+// Check if the input date is in the past
+if (inputDate < currentDate) {
+  console.error('Cannot book a trip for a past date');
+  messageContainer.textContent = 'Cannot book a trip for a past date.';
+  messageContainer.classList.add('error-message');
+  messageContainer.classList.remove('success-message');
+  return;
+}
 
   // Create a new trip object
   const newTrip = {
@@ -81,10 +115,11 @@ export const makeNewBooking = (newTripObject, userId) => {
 
   // Call to addNewTrip (API call)
   addNewTrip(newTrip)
-    .then((response) => {
-      // Handle server response
-      if (response.message) {
-        alert(`Trip added successfully: ${response.message}`);
+      .then((response) => {
+        if (response.message) {
+          messageContainer.textContent = `Trip added successfully: ${response.message}`;
+          messageContainer.classList.remove('error-message');
+          messageContainer.classList.add('success-message');
 
         // Clear the form fields
         document.getElementById('trip-destinations-input').value = '';
@@ -100,8 +135,6 @@ export const makeNewBooking = (newTripObject, userId) => {
         const currentYearlyTotal = parseFloat(yearlyTotalElement.innerText.replace(/\$/g, '')) || 0;
         const newYearlyTotal = currentYearlyTotal + totalCostWithFee;
         yearlyTotalElement.innerText = `$${newYearlyTotal.toFixed(2)}`;
-
-        // Generate trip HTML and append it
         const tripHTML = createTripHTML(newTrip, newTripObject.destinations, true);
         pendingTripsSection.innerHTML += tripHTML;
       } else {
@@ -110,15 +143,8 @@ export const makeNewBooking = (newTripObject, userId) => {
     })
     .catch((error) => {
       console.error("Error:", error);
-      alert("Failed to add new trip. Please try again.");
+      messageContainer.textContent = 'Failed to add new trip. Please try again.';
+      messageContainer.classList.add('error-message');
     });
 };
-
-//Book new trip button
-const bookNewTripButton = document.getElementById('bookNewTripBtn');
-if (bookNewTripButton) {
-  bookNewTripButton.addEventListener('click', () => {
-    makeNewBooking(newTripObject, userId); 
-  });
-}
 
