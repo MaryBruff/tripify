@@ -22,31 +22,30 @@
 
 ## 💭 Abstract
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+This project develops a user-friendly dashboard for travelers to manage and view their trip history, including past, upcoming, and pending trips. It features a financial tracker that calculates the total annual trip expenditure, including a 10% travel agent's fee, ensuring precise budget management.
 
 ## 📝  Context
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+
+This application was developed in Module 2 of the Turing School of Software and Design. This project was assigned as the final solo project and built in 6 days. 
+
 
 ## 🎥 Preview 
 
 
 
-## 🔌 Server Setup
-- Fork [this](https://frontend.turing.edu/projects/module-2/fitlit-part-one-agile.html) repository. 
-- Clone it to your local machine using the command: `git clone git@github.com:turingschool-examples/fitlit-starter-kit.git`.
-- Run the command: `cd fitlit-api`
-- Run the command: `npm install`
-- Run the command: `npm start`
-
-## Client App Setup
-- Clone it to your local machine using the command: ``
-- Run the command: `cd fitlit`
-- Run the command: `npm install`
-- Run the command: `npm start`
+## 🔌 Backend Server Setup
+1. Clone down this local server and run it in a separate tab in your terminal each time you run your client. [Backend Server](https://github.com/turingschool-examples/travel-tracker-api)
+2. After cloning cd into it. Then run:
+3. Npm install
+4. Npm start
 
 ## 📚 Learning Goals
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.****
 
+- Use object and array prototype methods to perform data manipulation
+- Create a clear and accessible user interface
+- Make network requests to retrieve data
+- Implement a robust testing suite using TDD
+- Write DRY, reusable code that follows SRP (Single Responsibility Principle)
 
 ## 🥇 Wins
 ⭐ 
