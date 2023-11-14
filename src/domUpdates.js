@@ -10,6 +10,7 @@ const destinationSelection = document.getElementById("trip-destinations-input");
 const newTripForm = document.getElementById("newTripForm");
 
 //===Functions===//
+
 export const createTripHTML = (trip, destinationsData, isNewTrip = false) => {
   if (!trip || !destinationsData) {
     return logErrorAndReturn("Invalid input to createTripHTML");

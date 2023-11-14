@@ -18,6 +18,7 @@ const messageContainer = document.getElementById('messageContainer');
 const updateVisibility = (showMainPage) => {
   document.getElementById('loginPage').classList.toggle('hidden', showMainPage);
   document.getElementById('mainPage').classList.toggle('hidden', !showMainPage);
+  document.getElementById('imageSide').classList.toggle('hidden', showMainPage);
 };
 
 const resetLoginForm = () => {
