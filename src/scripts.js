@@ -10,14 +10,14 @@ let userId = null;
 const loginButton = document.querySelector('#login-button-input');
 const userName = document.getElementById('login-username-input');
 const password = document.getElementById('login-password-input');
-const logoutButton = document.querySelector('.log-out');
+const logoutButton = document.querySelector('.main-page-logout');
 const bookNewTripButton = document.getElementById('bookNewTripBtn');
 const messageContainer = document.getElementById('messageContainer');
 
 // === Helper Functions === //
 const updateVisibility = (showMainPage) => {
-  document.getElementById('loginPage').classList.toggle('hidden', showMainPage);
-  document.getElementById('mainPage').classList.toggle('hidden', !showMainPage);
+  document.getElementById('loginSection').style.display = showMainPage ? 'none' : 'block';
+  document.getElementById('mainPage').style.display = showMainPage ? 'block' : 'none';
 };
 
 const resetLoginForm = () => {
@@ -29,7 +29,6 @@ const resetLoginForm = () => {
 const handleLogin = (e) => {
   e.preventDefault();
   const result = userLogin(userName.value, password.value, newTripObject.travelers);
-
   if (result.error) {
     document.getElementById('loginErrorMessage').innerText = result.error;
   } else {
@@ -39,6 +38,7 @@ const handleLogin = (e) => {
 };
 
 const updateMainPage = (userId, userName) => {
+  console.log("Updating main page for user:", userId, "Username:", userName);
   displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'past');
   displayUserTrips(userId, newTripObject.trips, newTripObject.destinations, 'pending');
   document.querySelector('.welcome').textContent = `Welcome back, ${userName}!`;
@@ -47,6 +47,7 @@ const updateMainPage = (userId, userName) => {
 
 // === Event Listeners === //
 loginButton.addEventListener('click', handleLogin);
+
 
 window.onload = () => {
   Promise.all(promises)

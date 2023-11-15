@@ -1,102 +1,302 @@
-body {
-  font-family: Arial, sans-serif;
-}
-
-main {
-  padding: 20px;
-}
-
-/* header {
-  display: flex;
+html, body {
   background-color: #aad3e6;
+  font-family: 'Arial', sans-serif; 
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  
+}
+
+#loginSection {
+  display: flex; 
+  align-items: stretch; 
+  height: 100vh; 
+}
+
+#loginSection .login-header {
+  display: flex;
   padding: 20px;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+}
+
+#loginSection .login-header h1 {
+  font-style: italic;
+  font-size: 10.5em;
+  margin: 0;
+}
+
+#loginSection .login-header h2 {
+  text-align: center;
+  font-size: 2.9em;
+  font-style: italic;
+  margin-top: 0.5em;
+  color: #000;
+}
+
+
+#loginSection .login-side,
+#loginSection .image-side {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#loginSection .image-side {
+  flex-basis: 50%;
+  background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1526&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+  color: black;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  padding: 20px;
+}
+
+#loginSection .login-form {
+  background-color: #FCC9B5;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+}
+
+#loginSection .login-form h2 {
+  color: #000;
+  text-align: center;
+  font-size: 45px;
+  margin-bottom: 40px;
+}
+
+#loginSection .login-username,
+#loginSection .login-password {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+
+#loginSection .login-username label,
+#loginSection .login-password label {
+  display: block;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+
+#loginSection .login-username input,
+#loginSection .login-password input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#loginSection button{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color:#CFEBB6; 
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* .main-page-logout{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color:#CFEBB6; 
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 10px;
 } */
 
+button:hover {
+  background-color: #d8e2dd;
+} 
+
+/* Main Page Section */
 header {
   display: flex;
-  background-color: #aad3e6;
-  padding: 20px;
-  flex-direction: row; 
-  align-items: center;
   justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
 }
 
 .header-content {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.welcome {
+  color: black;
+  font-size: 2.5rem;
+} 
+
+/* .log-out {
+  background-color: #FCC9B5; 
+  color: black;
+  padding: 25px 50px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: medium;
+} not working  */
+
+
+/* Form styles */
+.new-trip-form-container {
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 100%;
+  margin: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.submit{
-  padding: 30px 60px;
-  background-color: #fcc9b5;
-}
-
-.trip-nav {
+.new-trip-form {
   display: flex;
-  justify-content: space-evenly;
-  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 
-.trip-button {
-  padding: 30px 60px;
-  background-color: #fcc9b5;
+.form-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.label-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="date"],
+input[type="number"],
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  width: auto; 
+}
+
+input[type="date"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+#trip-destinations-input {
+  font-size: 18px; 
+  padding: 12px;
+  width: 250px; 
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
   border: none;
+  border-radius: 4px;
   cursor: pointer;
-  font-size: medium;
+  transition: background-color 0.3s;
 }
 
-.trip-button:hover {
-  background-color: #f8b8d0; 
+button[type="submit"]:hover {
+  background-color: #0056b3;
 }
+
+@media (max-width: 800px) {
+  .new-trip-form {
+    flex-direction: column;
+  }
+}
+
+
+
+
+/* Trips Section */
+
+
+.scroll-box {
+  height: 300px; /* Adjust the height as needed */
+  overflow-y: auto; /* Enables vertical scroll if the content overflows */
+  background-color: #d6eadf;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 8px; /* Optional, for rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional, for a subtle shadow */
+}
+
+
+.trip img {
+  width: 150px; /* Fixed width */
+  height: 100px; /* Fixed height */
+  object-fit: cover; /* This will ensure the image covers the area, cropping if necessary */
+  border-radius: 5px; /* Optional, for aesthetics */
+}
+
 
 .trip {
   display: flex;
-  align-items: center;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: white;
+  overflow-x: auto;
+  white-space: nowrap;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.trip {
+  overflow-x: auto; /* Enables horizontal scrolling */
+  overflow-y: hidden; /* Hides vertical scroll */
 }
 
-.trip img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  margin-right: 10px;
-  border-radius: 5px;
+
+@media screen and (max-width: 768px) {
+  .trip img {
+    max-height: 100px; /* Example adjustment for smaller screens */
+  }
 }
 
-.trip-details {
-  flex-grow: 1;
-  font-weight: bold;
+
+.scroll-box::-webkit-scrollbar {
+  width: 8px;
 }
 
-.trip-status {
-  font-weight: bold;
+.scroll-box::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-.scroll-box {
-  height: 300px;
-  overflow-y: scroll;
-  background-color: #d6eadf; 
-  margin-top: 20px;
-  padding: 10px;
+.scroll-box::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
-.log-out {
-  background-color: #f44336; /* Red */
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  /* margin-left: auto; push to the right */
+.scroll-box::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
+
 
 #bookNewTripBtn {
   padding: 10px 30px;
@@ -104,38 +304,32 @@ header {
   border: none;
   cursor: pointer;
   font-size: medium;
+  color: #000;
 }
 
-
-.trip-card {
-  cursor: pointer;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-
-.message-container {
+#mainPage .message-container {
   padding: 10px;
   margin-bottom: 10px;
   text-align: center;
-  display: none; /* Initially hidden */
+  display: none; 
 }
 
-.message-container.error-message {
+
+#mainPage .message-container.error-message {
   background-color: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
-  display: block; /* Show when there is a message */
-}
+  display: block; 
+} 
 
-.message-container.success-message {
+
+
+#mainPage .message-container.success-message {
   background-color: #d4edda;
   color: #155724;
   border: 1px solid #c3e6cb;
-  display: block; /* Show when there is a message */
-}
 
+}
 
 .hidden {
   display: none;
@@ -144,3 +338,9 @@ header {
 .show {
   display: block; 
 }
+
+
+
+
+
+
