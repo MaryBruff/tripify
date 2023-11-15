@@ -67,12 +67,6 @@ bookNewTripButton.addEventListener('click', (event) => {
   makeNewBooking(newTripObject, userId);
 });
 
-const handleLogout = () => {
-  updateVisibility(false);
-  resetLoginForm();
-  clearUserData(); // call the function to clear user data
-};
-
 logoutButton.addEventListener('click', () => {
   updateVisibility(false);
   resetLoginForm();

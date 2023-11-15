@@ -289,7 +289,6 @@ h2 {
   color: #000;
 }
 
-
 /* Error Messages */
 .form-error {
   border-color: red;
@@ -301,8 +300,6 @@ h2 {
   font-size: 0.9em; 
   margin-top: 5px; 
 }
-
-
 
 /* Media queries */
 @media (max-width: 800px) {
