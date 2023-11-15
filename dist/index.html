@@ -18,7 +18,7 @@
       <div class="login-side">
         <div id="loginPage" class="login-page">
           <form class="login-form" method="post">
-            <p class="login-error" id="loginErrorMessage"></p>
+            <p class="login-error" id="loginErrorMessage" role="alert"></p>
             <h2>Login</h2>
             <div class="login-username">
               <label for="login-username-input">Username</label>
@@ -64,18 +64,18 @@
             <input type="number" name="travelers" id="trip-numTravelers-input" min="1" required />
           </div>
           <div class="form-example">
-            <button type="submit" id="bookNewTripBtn" aria-label="Book Trip">Book Trip</button>
+            <button id="bookNewTripBtn" aria-label="Book Trip">Book Trip</button>
           </div>
         </form>
       </div>
+      <h2>Past Trips</h2>
       <section id="pastTripsSection" class="scroll-box trip-container">
-        <h2>Past Trips</h2>
         <div class="trip">
           <!--------Past Trip Images and Text Here --------->
         </div>
       </section>
+      <h2>Pending Trips</h2>
       <section id="pendingTripsSection" class="scroll-box trip-container">
-        <h2>Pending Trips</h2>
         <p>Estimated Cost: <span class="estimated" id="estimated"></span>0</p>
       </section>
     </main>
