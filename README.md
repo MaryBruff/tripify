@@ -2,7 +2,7 @@
   
 # 🗺️ Tripify Travel Tracker
 ![Tests](https://badgen.net/badge/tests/passing/green?icon=github)
-
+![Commits](https://badgen.net/github/last-commit/MaryBruff//tripify)
 
 ## 💾 Technologies Used
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
@@ -48,9 +48,14 @@ This application was developed in Module 2 of the Turing School of Software and 
 - Write DRY, reusable code that follows SRP (Single Responsibility Principle)
 
 ## 🥇 Wins
-⭐ 
-	
+⭐ Successfully implemented and executed FETCH calls, enhancing the application's ability to efficiently handle network requests and data retrieval.
 
+⭐ Completed a minimum viable product for a complex project within a constrained timeline, demonstrating effective project management and technical skills.
+	
 ## 🚧 Challenges
-❗ 
+❗ Encountered initial difficulties in aligning the starting code with project extensions, leading to necessary revisions and backtracking.
+
+❗ Initially prioritized functionality over aesthetic design, which resulted in a need for later refinements in the application's CSS.
+
+❗ Faced challenges in balancing the intricate aspects of the project, requiring strategic adjustments to meet both technical and design goals.
 
