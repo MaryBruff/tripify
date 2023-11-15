@@ -289,7 +289,22 @@ h2 {
   color: #000;
 }
 
-/* Media queries at the end */
+
+/* Error Messages */
+.form-error {
+  border-color: red;
+  background-color: #ffe5e5; 
+}
+
+.form-error-message {
+  color: red;
+  font-size: 0.9em; 
+  margin-top: 5px; 
+}
+
+
+
+/* Media queries */
 @media (max-width: 800px) {
   .new-trip-form {
     flex-direction: column;

@@ -47,6 +47,7 @@ const updateMainPage = (userId, userName) => {
 
 // === Event Listeners === //
 loginButton.addEventListener('click', handleLogin);
+document.querySelector('.login-form').addEventListener('submit', handleLogin);
 
 
 window.onload = () => {
@@ -61,9 +62,16 @@ window.onload = () => {
     .catch(error => console.log('Request failed from Promise.all', error));
 };
 
-bookNewTripButton.addEventListener('click', () => {
+bookNewTripButton.addEventListener('click', (event) => {
+  event.preventDefault();
   makeNewBooking(newTripObject, userId);
 });
+
+const handleLogout = () => {
+  updateVisibility(false);
+  resetLoginForm();
+  clearUserData(); // call the function to clear user data
+};
 
 logoutButton.addEventListener('click', () => {
   updateVisibility(false);
