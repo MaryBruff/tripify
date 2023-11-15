@@ -108,3 +108,4 @@ if (newTripForm) {
 } else {
   console.error("newTripForm not found");
 }
+

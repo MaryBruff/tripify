@@ -10,7 +10,7 @@ let userId = null;
 const loginButton = document.querySelector('#login-button-input');
 const userName = document.getElementById('login-username-input');
 const password = document.getElementById('login-password-input');
-const logoutButton = document.querySelector('.log-out');
+const logoutButton = document.querySelector('.main-page-logout');
 const bookNewTripButton = document.getElementById('bookNewTripBtn');
 const messageContainer = document.getElementById('messageContainer');
 
@@ -47,6 +47,7 @@ const updateMainPage = (userId, userName) => {
 
 // === Event Listeners === //
 loginButton.addEventListener('click', handleLogin);
+
 
 window.onload = () => {
   Promise.all(promises)
