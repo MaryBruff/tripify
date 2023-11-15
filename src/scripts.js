@@ -47,8 +47,6 @@ const updateMainPage = (userId, userName) => {
 
 // === Event Listeners === //
 loginButton.addEventListener('click', handleLogin);
-document.querySelector('.login-form').addEventListener('submit', handleLogin);
-
 
 window.onload = () => {
   Promise.all(promises)
@@ -62,8 +60,7 @@ window.onload = () => {
     .catch(error => console.log('Request failed from Promise.all', error));
 };
 
-bookNewTripButton.addEventListener('click', (event) => {
-  event.preventDefault();
+bookNewTripButton.addEventListener('click', () => {
   makeNewBooking(newTripObject, userId);
 });
 
