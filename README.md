@@ -30,6 +30,8 @@ This application was developed in Module 2 of the Turing School of Software and 
 
 
 ## 🎥 Preview 
+<img width="1348" alt="Screenshot 2023-11-14 at 10 05 55 PM" src="https://github.com/MaryBruff/tripify/assets/128327004/250c824a-9dde-42bd-9d09-f0a98fb4b5e8">
+<img width="1424" alt="Screenshot 2023-11-14 at 10 06 31 PM" src="https://github.com/MaryBruff/tripify/assets/128327004/1ec645c8-4f27-49ad-8393-f8bc20e59aa1">
 
 
 
