@@ -1,16 +1,19 @@
-html, body {
-  background-color: #8BABF1;
-  font-family: 'Arial', sans-serif; 
+/* Global styles */
+html,
+body {
+  background-color: #8babf1;
+  font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
 }
 
+/* Login Section */
 #loginSection {
-  display: flex; 
-  align-items: stretch; 
-  height: 100vh; 
+  display: flex;
+  align-items: stretch;
+  height: 100vh;
 }
 
 #loginSection .login-header {
@@ -34,7 +37,6 @@ html, body {
   color: #000;
 }
 
-
 #loginSection .login-side,
 #loginSection .image-side {
   flex-basis: 50%;
@@ -46,20 +48,20 @@ html, body {
 
 #loginSection .image-side {
   flex-basis: 50%;
-  background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1526&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-image: url("https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=1526&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   background-size: cover;
   background-position: center;
   color: black;
   flex-direction: column;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
 #loginSection .login-form {
-  background-color: #FCC9B5;
+  background-color: #fcc9b5;
   border-radius: 20px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   padding: 40px;
   width: 100%;
   max-width: 400px;
@@ -78,14 +80,12 @@ html, body {
   margin-bottom: 20px;
 }
 
-
 #loginSection .login-username label,
 #loginSection .login-password label {
   display: block;
   color: #000;
   margin-bottom: 5px;
 }
-
 
 #loginSection .login-username input,
 #loginSection .login-password input {
@@ -95,12 +95,12 @@ html, body {
   font-size: 16px;
 }
 
-#loginSection button{
+#loginSection button {
   width: 100%;
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color:#CFEBB6; 
+  background-color: #cfebb6;
   color: black;
   font-size: 20px;
   cursor: pointer;
@@ -108,22 +108,20 @@ html, body {
 }
 
 #login-button-input:hover {
-  background-color: #8BABF1; 
-  color: black; 
+  background-color: #8babf1;
+  color: black;
 }
 
-
 /* Main Page Section */
-
 main#mainPage header {
-  background: linear-gradient(to right, #CFEBB6, #FCC9B5); 
-  padding: 20px; 
-  border-radius: 8px; 
+  background: linear-gradient(to right, #cfebb6, #fcc9b5);
+  padding: 20px;
+  border-radius: 8px;
 }
 
 header {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 10px 20px;
@@ -141,10 +139,10 @@ header {
 .welcome {
   color: black;
   font-size: 2.5rem;
-} 
+}
 
 .main-page-logout {
-  background-color: #8BABF1; 
+  background-color: #8babf1;
   color: black;
   padding: 25px 50px;
   border: none;
@@ -154,7 +152,7 @@ header {
 }
 
 .main-page-logout:hover {
-  background-color: #FCC9B5; 
+  background-color: #fcc9b5;
 }
 
 /* Form styles */
@@ -202,7 +200,7 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  width: auto; 
+  width: auto;
 }
 
 input[type="date"]:focus,
@@ -213,9 +211,9 @@ select:focus {
 }
 
 #trip-destinations-input {
-  font-size: 18px; 
+  font-size: 18px;
   padding: 12px;
-  width: 250px; 
+  width: 250px;
 }
 
 button[type="submit"] {
@@ -232,66 +230,54 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-@media (max-width: 800px) {
-  .new-trip-form {
-    flex-direction: column;
-  }
-}
-
 /* Trips Section */
 h2 {
-  font-size: 2em; 
+  font-size: 2em;
   color: black;
   margin-top: 20px;
-  margin-bottom: 10px; 
-  text-align: center; 
+  margin-bottom: 10px;
+  text-align: center;
   font-style: italic;
 }
 
 .scroll-box {
-  height: 300px; 
-  overflow-y: auto; 
-  background-color: #A5ABBD;
-  margin-top:60px;
+  height: 300px;
+  overflow-y: auto;
+  background-color: #a5abbd;
+  margin-top: 60px;
   padding: 10px;
-  border-radius: 8px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-left: 30px;
   margin-right: 40px;
 }
 
 .trip img {
-  width: 150px; 
+  width: 150px;
   height: 100px;
-  object-fit: cover; 
-  border-radius: 5px; 
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .trip {
   display: flex;
-  overflow-x: auto; 
-  overflow-y: hidden; 
-  white-space: nowrap; 
-  flex-direction: column; 
-  align-items: flex-start; 
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 10px;
-  padding: 10px; 
-  border: 1px solid #ccc; 
-  border-radius: 5px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  background-color: #f8f8f8; 
-  max-width: 100%; 
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f8f8f8;
+  max-width: 100%;
 }
 
 .trip-details {
   font-size: larger;
   font-weight: bold;
-}
-
-@media screen and (max-width: 768px) {
-  .trip img {
-    max-height: 100px; 
-  }
 }
 
 #bookNewTripBtn {
@@ -303,16 +289,19 @@ h2 {
   color: #000;
 }
 
+/* Media queries at the end */
+@media (max-width: 800px) {
+  .new-trip-form {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .trip img {
+    max-height: 100px;
+  }
+}
+
 .hidden {
   display: none;
 }
-
-/* .show {
-  display: block; 
-}
- */
-
-
-
-
-
